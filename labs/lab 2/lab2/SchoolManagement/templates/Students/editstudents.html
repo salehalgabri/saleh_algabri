@@ -1,0 +1,32 @@
+<h2>Edit Student</h2>
+<h3>if</h3>
+{% if total > 250 %}
+<p>Ex</p>
+{% endif %}
+
+<h3>if and else</h3>
+{% if total > 250 %}
+<p>Ex</p>
+{% else %}
+<p>Goooood</p>
+{% endif %}
+
+<h3>if, elif and else</h3>
+{% if total > 250 %}
+<p>Ex</p>
+{% elif total < 250 and totla > 200 %}
+<p>Very Goooood</p>
+{% else %}
+<p>Goooood</p>
+{% endif %}
+
+<h3>For Loob</h3>
+<ul>
+    {% for sub,mark in marks.items %}
+    <li>
+        {{sub}} : {{mark}}
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url "home" %}">Back</a>

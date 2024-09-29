@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+</head>
+<body>
+    <h1>Hello For All Students</h1>
+</body>
+</html>
+
+
+<h3>Your Name: {{fname | default:"almosanif"}} </h3>
+<h3>Your Name: {{fname | upper}} </h3>
+<h3>Your Name: {{fname | lower}} </h3>
+<h3>Your Name: {{fname | capfirst}} </h3>
+<h3>Your Name: {{fname | length}} </h3>
+<h3>Your Name: {{fname | slice:":2"}} </h3>
+<h3>Your Name: {{fname | add:" almosanif"}} </h3>
+
+<a href="{% url "home" %}">Back</a>
