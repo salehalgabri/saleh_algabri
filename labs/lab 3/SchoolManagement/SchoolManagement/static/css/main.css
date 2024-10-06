@@ -1,0 +1,19 @@
+*{
+    background-color: #eee;
+}
+.head{
+    color: white;
+    background-color: red;
+    text-align: center;
+    padding: 20px;
+}
+.footer {
+    color: white;
+    background-color: black;
+    text-align: center;
+    padding: 20px;
+}
+.images {
+    width: 200px;
+    height: 200px;
+}
