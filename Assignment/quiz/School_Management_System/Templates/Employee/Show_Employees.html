@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Employees</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Employee Table</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Employee Name</th>
+                <th>Department</th>
+                <th>Job Title</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for employee in employees %}
+        <tr>
+            <td>{{ employee.ID }}</td>
+            <td>{{ employee.Name }}</td>
+            <td>{{ employee.Department }}</td>
+            <td>{{ employee.Position }}</td>
+            <td>{{ employee.Salary }}</td>
+        </tr>
+        {% endfor %}
+        
+        </tbody>
+    </table>
+    <a href="{% url 'Employees_Page' %}">Back</a>
+</body>
+
+</html>

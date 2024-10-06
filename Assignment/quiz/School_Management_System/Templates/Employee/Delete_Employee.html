@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Employee</title>
+</head>
+<body>
+
+    {% for employee in employees %}
+    {% if employee.Salary > 50000 %}
+    <pre>
+        ID:{{ employee.ID }}
+        Name:{{ employee.Name }}
+        Department:{{ employee.Department }}
+        Position:{{ employee.Position }}
+        Salary:{{ employee.Salary }}
+        <h3>High salary</h3>
+    </pre>
+    {% else %}
+    <pre>
+        ID:{{ employee.ID }}
+        Name:{{ employee.Name }}
+        Department:{{ employee.Department }}
+        Position:{{ employee.Position }}
+        Salary:{{ employee.Salary }}
+        <h3>Low salary</h3>
+    </pre>
+    {% endif %}
+    {% endfor %}
+    <a href="{% url 'Employees_Page' %}">Back</a>
+</body>
+</html>
