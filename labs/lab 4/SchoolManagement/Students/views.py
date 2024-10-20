@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Students
+from django.db.models import Q
 # Create your views here.
 def index(request):
     name={
@@ -38,12 +39,11 @@ def editstudents(request):
 def deletestudents(request):
     return render(request,'Students/deletestudents.html')
 
-# def
 
 def create_student(request):
     Students.objects.create(
-    f_name='Mohammed',
-    l_name='Alhosany',
+    f_name='Ali',
+    l_name='Mohammed',
     age=22,
     level="4",
     gpa=9.9,
@@ -51,3 +51,31 @@ def create_student(request):
     reporet="ss",
     ).save()
     return HttpResponse('Created')
+
+def getStudents(request):
+    # student=Students.objects.all()
+    # student=Students.objects.filter(f_name__contains='o')#سيجلب البيانات التي تحتوي على حرف "o"
+    # student=Students.objects.filter(gpa__in=[9.0])#سيجلب البيانات التي تحتوي على احد القيم في List
+    # student=Students.objects.filter(gpa__range=[9.0,9.9])#سيجلب البيانات التي تكون في مدى في List
+    # student=Students.objects.filter(gpa__exact=9.0)# سيجلب البيانات المحددة في العمود المحدد
+    # student=Students.objects.all().exclude(f_name='Mohammed')#سيرجع بكل البيانات عدا الموجودة في الشرط
+    student=Students.objects.all().exclude(Q(f_name='Mohammed')|Q(age=22))#سيرجع بكل البيانات عدا الموجودة في الشرط
+    # student=Students.objects.all().order_by('gpa') #جلب البيانات تصاعدياً
+    # student=Students.objects.all().order_by('-gpa')#جلب البيانات تنازلياً 
+    # student=Students.objects.all()[0]
+    count=Students.objects.all().count()
+    return render(request,'showstudents.html',{'students':student})
+
+def edit_students(request,pk): 
+    student=Students.objects.get(pk=pk)
+    student.level=4
+    student.l_name='ALGABRI'
+    student.gpa=8.0
+    student.save()
+    return HttpResponse("Update Done")
+
+def delete_students(request,pk):
+    student=Students.objects.get(pk=pk)
+    student.delete()
+    return HttpResponse("Delete Done")
+

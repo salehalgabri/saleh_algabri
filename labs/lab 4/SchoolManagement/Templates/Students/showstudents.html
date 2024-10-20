@@ -5,7 +5,7 @@
 <ul>
     {% for student in students  %}
     <li>
-        {{student}}
+        {{student.id}} -> {{student}}-Level:{{student.level}} - Gpa:{{student.gpa}} <a href="{% url 'edit_students' student.id%}">Edit</a> <a href="{% url 'delete_students' student.id%}">Delete</a>
     </li>   
     {% endfor %}
 
