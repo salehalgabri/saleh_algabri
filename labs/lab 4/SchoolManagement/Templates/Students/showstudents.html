@@ -1,0 +1,12 @@
+<h2>Welcome: {{name}} </h2>
+<h2>Your Marks: {{marks}} </h2>
+<h2>Your Marks on Each Subject: {{eachsub}} </h2>
+<a href="{% url "home" %}">Back</a>
+<ul>
+    {% for student in students  %}
+    <li>
+        {{student}}
+    </li>   
+    {% endfor %}
+
+</ul>

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}
+<h2>Delete Page</h2>
+<a href="{% url "home" %}">Back</a>
+{% endblock title %}
+{% load static %}
+{% block image%}
+<img src="{% static 'images/github_logo.png' %}" alt='GitGub' title='GIthub logo'class='img'>
+{% endblock image%}
