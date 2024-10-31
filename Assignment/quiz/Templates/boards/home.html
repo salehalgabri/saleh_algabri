@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Boards
+{% endblock title %}
+    
+    
+    {% block breadcrumb %}
+        <li class="breadcrumb-item avtive">Boards</li>
+    {% endblock breadcrumb %}
+        
+
+    
+{% block content %}
+    <table class="table">
+        
+        <thead class="table-dark">
+            <tr>
+                <th>Board</th>
+                <th>Posts</th>
+                <th>Topics</th>
+                <th>Last Post</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+    {% for board in boards%}
+    <tr>
+        <td><h4><a href="{% url 'boards_topics' board.name %}">{{board.name}}</a></h4>
+            <small class="text-muted" >{{board.description}}</small></td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+    </tr>
+    {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock content %}

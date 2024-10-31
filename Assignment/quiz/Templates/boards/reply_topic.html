@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Post Reply to {{ topic.subject }}
+{% endblock title %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'index' %}">Boards</a></li>
+<li class="breadcrumb-item"><a href="{% url 'boards_topics' topic.board.name %}">{{ topic.board.name }}</a></li>
+<li class="breadcrumb-item"><a href="{% url 'topic_posts' topic.board.name topic.id %}">{{ topic.subject }}</a></li>
+<li class="breadcrumb-item active">Post Reply</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<form class="my-4" action="" method="post" novalidate>
+    {% csrf_token %}
+    {% load widget_tweaks %}
+
+    <div class="form-floating mb-3">
+        {% for field in form %}
+        {% render_field field class="form-control" style="height:200px" %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% if field.errors %}
+        <div class="invalid-feedback">
+            {% for error in field.errors %}
+            {{ error }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if field.help_text %}
+        <small class="form-text text-muted mb-3">{{ field.help_text }}</small>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <button class="btn btn-primary my-2" type="submit">Post The Reply</button>
+</form>
+
+{% for post in topic.Posts.all %}
+<div class="container my-4">
+    <div class="row justify-content-start">
+        <div class="card mb-3" style="max-width: 720px;">
+            <div class="row g-0 px-2 py-2">
+                <div class="col-md-4">
+                    <img src="{% static 'images/user.png' %}" alt="{{ post.created_by.username }}" class="w-100">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="p-3 mb-2 bg-secondary text-white rounded-pill ">{{post.created_by.username}}</h5>
+                        <p class="card-text p-3 mb-2 bg-light text-dark">{{post.message}}</p>
+                        <p class="card-text"><small class="text-muted">{{post.created_dt}}</small></p>
+                    </div>
+                </div>
+
+                {% if post.created_by == user %}
+                <a href="#" class="btn btn-primary my-2">Edit</a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}

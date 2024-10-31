@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{ topic.subject }}
+{% endblock title %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'index' %}">Boards</a></li>
+<li class="breadcrumb-item"><a href="{% url 'boards_topics' topic.board.name %}">{{ topic.board.name }}</a></li>
+<li class="breadcrumb-item active">{{ topic.subject }}</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<div class="my-4">
+    <a href="{% url 'reply_topic' topic.board.name topic.id %}" class="btn btn-primary ">Reply</a>
+</div>
+{% for post in topic.Posts.all %}
+<div class="container">
+    <div class="row justify-content-start">
+        <div class="card mb-3" style="max-width: 720px;">
+            <div class="row g-0 px-2 py-2">
+                <div class="col-md-4">
+                    <img src="{% static 'images/user.png' %}" alt="{{ post.created_by.username }}" class="w-100">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="p-3 mb-2 bg-secondary text-white rounded-pill ">{{post.created_by.username}}</h5>
+                        <p class="card-text p-3 mb-2 bg-light text-dark">{{post.message}}</p>
+                        <p class="card-text"><small class="text-muted">{{post.created_dt}}</small></p>
+                    </div>
+                </div>
+                
+                {% if post.created_by == user %}
+                    <a href="#" class="btn btn-primary my-2">Edit</a>
+                {% endif %}
+                    
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}
