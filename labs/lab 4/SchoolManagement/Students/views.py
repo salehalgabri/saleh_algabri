@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Students
 from django.db.models import Q
+from .filters import StudentsFilter
 # Create your views here.
 def index(request):
     name={
@@ -22,8 +23,14 @@ def showstudents(request):
     #         "Client and Server Programming":96
     #         },
     # }
+    
     students=Students.objects.all()
-    return render(request,'Students/showstudents.html',{'students':students})
+    
+    #------------filters----------------
+    myFilter=StudentsFilter(request.GET,queryset=students)
+    students=myFilter.qs
+    
+    return render(request,'Students/showstudents.html',{'students':students,'myFilter':myFilter})
 
 def editstudents(request):
     students={
