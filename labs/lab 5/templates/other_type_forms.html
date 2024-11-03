@@ -1,0 +1,19 @@
+
+
+
+
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="border border-primary m-5 p-5">Add New Item</h1>
+<div class="m-5 border-primary">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary m-2">Submit</button>
+    </form>
+</div>
+{% endblock %}
+
+
+
+

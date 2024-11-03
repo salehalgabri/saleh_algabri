@@ -80,11 +80,11 @@ WSGI_APPLICATION = 'Hospital.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Patients',            # اسم قاعدة البيانات
-        'USER': 'root',        # اسم المستخدم لقاعدة البيانات
-        'PASSWORD': '',    # كلمة المرور لقاعدة البيانات
-        'HOST': 'localhost',            # المضيف، غالبًا 'localhost' إذا كانت القاعدة محلية
-        'PORT': '3306',                 # المنفذ الافتراضي لـ MySQL هو 3306
+        'NAME': 'Patients',           
+        'USER': 'root',        
+        'PASSWORD': '',    
+        'HOST': 'localhost',          
+        'PORT': '3306',                
     }
 }
 
@@ -128,6 +128,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
+
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

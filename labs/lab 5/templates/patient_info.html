@@ -1,0 +1,30 @@
+{% include 'layout/header.html' %}
+<div class="card mb-3 border border-primary m-5 p-5">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{patient.image.url}}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{patient.id}}->{{patient}}</h5>
+                <p class="card-text">age:{{patient.age}}<br>report:{{patient.report}}</p>
+                <p class="card-text"><small class="text-muted"> {{patient.uploaded_at}}</small></p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        <button type="button" class="btn btn-primary"><a href="{% url 'patients:edit' patient.id %}"
+                                class="text-decoration-none text-white">Update</a>
+                        </button>
+                        <button type="button" class="btn btn-danger">
+                            <a href="{% url 'patients:delete' patient.id%}"
+                                class="text-decoration-none text-white">Delete</a>
+                        </button>
+                        <button type="button" class="btn btn-primary"><a href="{% url 'patients:home'%}"
+                                class="text-decoration-none text-white">Home</a>
+                        </button>
+                    </small>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>

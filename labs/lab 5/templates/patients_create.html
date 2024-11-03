@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="border border-primary m-5 p-5">Add New Item</h1>
+<div class="m-5 border-primary">
+    <form method="post" action="{% url 'patients:create' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="col-md-4">
+            <label for="validationCustom01" class="form-label">First name</label>
+            <input type="text" class="form-control" id="validationCustom01" required name="fname">
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="validationCustom02" required name="lname">
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <label for="validationDefault05" class="form-label">Age</label>
+            <input type="number" class="form-control" id="validationDefault05" required name="age">
+        </div>
+        
+        <div class="input-group">
+            <span class="input-group-text">With textarea</span>
+            <textarea class="form-control" aria-label="With textarea" name="report"></textarea>
+        </div>
+        
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Medical Report</label>
+            <input class="form-control" type="file" id="formFile" name="medicalreport">
+        </div>
+        
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Patient Image</label>
+            <input class="form-control" type="file" id="formImage" name="image">
+        </div>
+        
+        <button type="submit" class="btn btn-primary m-2">Submit</button>
+    </form>
+</div>
+{% endblock %}
