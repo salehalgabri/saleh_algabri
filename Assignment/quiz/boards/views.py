@@ -10,7 +10,7 @@ def home(request):
     
     return render(request,'home.html',{'boards':boards})
 
-
+@login_required
 def boards_topics(request,boards_name):
     board=get_object_or_404(Board,name=boards_name)
     return render(request,'topics.html',{'board_name':board})
