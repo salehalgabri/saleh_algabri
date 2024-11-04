@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+    <li class="nav-item">
+        <a class="nav-link " aria-current="page" href="{% url 'patients:patients_home' %}">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'patients:show' %}">Patients</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="{% url 'patients:create' %}">Add New Patients</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="{% url 'patients:forms' %}">Forms</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/">Admin</a>
+    </li>
+
+{% endblock navbar %}
+
+    {% block breadcrumb %}
+        <li class="breadcrumb-item"><a href="{% url 'patients:home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a  href="{% url 'patients:patients_home' %}">Patients</a></li>
+        <li class="breadcrumb-item active"><a class="text-muted" href="#">Show Patients</a></li>
+    {% endblock breadcrumb %}
+
+{% block content %}
+    <h1 class="border border-primary m-5 p-5">Patients</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Report</th>
+            <th>Actions</th>
+        </tr>
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient }}</td>
+            <td>{{ patient.age }}</td>
+            <td>{{ patient.report }}</td>
+            <td>
+                <a href="{% url 'patients:edit' patient.id %}"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'patients:delete' patient.id %}" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                <a href="{% url 'patients:showdetail' patient.id %}" class="text-warning"><i class="fas fa-info-alt"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

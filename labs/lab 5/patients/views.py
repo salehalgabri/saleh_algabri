@@ -7,17 +7,21 @@ from django.db import IntegrityError
 from django.urls import reverse
 # Create your views here.
 def home(request):
+    return render(request,'home.html')
+
+def patients_home(request):
     return render(request,'patients_home.html')
+
 def patients_list(request):
     patients=Patients.objects.all()
     if patients.exists:
         return render(request,'patients_list.html',{'patients':patients})
 
 def message_success(request):
-    return render(request,"success_message.html")
+    return render(request,"patients/success_message.html")
 
 def error_page(request):
-    return render(request,"error_page.html")
+    return render(request,"patients/error_page.html")
 
 def patients_show_detail(request, pk):
     patient = get_object_or_404(Patients, id=pk)
@@ -41,7 +45,7 @@ def patient_delete(request, pk):
                 
         # حذف المريض من قاعدة البيانات
         patient.delete()
-        return redirect(reverse('patients:success_message'))
+        return redirect(reverse('patients:message_success'))
     except:
         return redirect(reverse('patients:error_page'))
 
@@ -59,7 +63,7 @@ def patients_create(request):
                 image=request.FILES.get('image'),
                 file_report=request.FILES.get('medicalreport')
             )
-            return redirect(reverse('patients:success_message'))
+            return redirect(reverse('patients:message_success'))
         except IntegrityError:
             return redirect(reverse('patients:error_page'))
     else:
@@ -70,6 +74,10 @@ def patients_edit(request, pk):
     patient = get_object_or_404(Patients, id=pk)
     if request.method == 'POST':
         try:
+            if patient.image:
+                image_path = patient.image.path
+                if os.path.isfile(image_path):
+                    os.remove(image_path)
             patient.first_name = request.POST.get('fname')
             patient.last_name = request.POST.get('lname')
             patient.age = request.POST.get('age')
@@ -77,7 +85,7 @@ def patients_edit(request, pk):
             patient.image = request.FILES.get('image')
             patient.file_report = request.FILES.get('medicalreport')
             patient.save()
-            return redirect(reverse('patients:success_message'))
+            return redirect(reverse('patients:message_success'))
         except IntegrityError:
             return redirect(reverse('patients:error_page'))
     else:

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+    <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="{% url 'doctors:doctors_home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'doctors:show' %}">Doctors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'doctors:create' %}">Add New Doctor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'doctors:forms' %}">Forms</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/">Admin</a>
+                </li>
+    </li>
+{% endblock navbar %}
+
+    {% block breadcrumb %}
+        <li class="breadcrumb-item"><a href="{% url 'patients:home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'doctors:doctors_home' %}">Doctors</a></li>
+        <li class="breadcrumb-item"><a  href="{% url 'doctors:show' %}">Show Doctors</a></li>
+        <li class="breadcrumb-item "><a class="text-muted" href="#">Update Doctors</a></li>
+    {% endblock breadcrumb %}
+
+
+
+{% block content %}
+<h1 class="border border-primary m-5 p-5">Update Doctors</h1>
+<div class="m-5 border-primary">
+    <form method="post" action="{% url 'doctors:edit' doctor.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-md-4">
+            <label for="validationCustom01" class="form-label">First name</label>
+            <input type="text" class="form-control" id="validationCustom01" required name="fname" value="{{doctor.first_name}}">
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="validationCustom02" required name="lname" value="{{doctor.last_name}}">
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="validationDefault05" class="form-label">Age</label>
+            <input type="number" class="form-control" id="validationDefault05" required name="age" value="{{doctor.age}}">
+        </div>
+        <div class="col-md-3">
+            <label for="validationDefault05" class="form-label">Specialization</label>
+            <input type="text" class="form-control" id="validationDefault05" required name="Specialization" value="{{doctor.Specialization}}">
+        </div>
+        <div class="mb-3">
+            <label for="formImage" class="form-label">Doctor Image</label>
+            <input class="form-control" type="file" id="formImage" name="image" value="{{doctor.image}}">
+        </div>
+        <button type="submit" class="btn btn-primary m-2">Submit</button>
+    </form>
+</div>
+{% endblock %}

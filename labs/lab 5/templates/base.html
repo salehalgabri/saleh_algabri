@@ -1,5 +1,35 @@
 {% include 'layout/header.html' %}
-{% include 'layout/navbar.html' %}
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'patients:home' %}">H.P.S</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                {% block navbar %}
+    
+                {% endblock navbar %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<nav class="m-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    
+    {% block breadcrumb %}
+        
+    {% endblock breadcrumb %}
+        
+  </ol>
+</nav>
+
 
 {% block content %}
     

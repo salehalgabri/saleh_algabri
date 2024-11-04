@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'patients.apps.PatientsConfig',
+    'Doctors.apps.DoctorsConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +59,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR,'templates')
+            os.path.join(BASE_DIR,'templates'),
+            os.path.join(BASE_DIR,'templates/patients'),
+            os.path.join(BASE_DIR,'templates/doctors'),
             ],
         'APP_DIRS': True,
         'OPTIONS': {

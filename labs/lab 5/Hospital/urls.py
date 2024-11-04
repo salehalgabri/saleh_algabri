@@ -20,5 +20,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('patients.urls')),
+    path('', include('patients.urls', namespace='patients')),  # تضمين مسارات تطبيق patients
+    path('doctors/', include('Doctors.urls', namespace='doctors')),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

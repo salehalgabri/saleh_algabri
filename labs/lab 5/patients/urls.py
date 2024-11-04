@@ -5,6 +5,7 @@ app_name = 'patients'  # هذا السطر يعرّف الـ namespace الخا�
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('patients/', views.patients_home, name='patients_home'),
     path('create/', views.patients_create, name='create'),
     path('show/', views.patients_list, name='show'),
     path('success/', views.message_success, name='message_success'),
