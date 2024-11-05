@@ -32,7 +32,7 @@
                 </div>
                 
                 {% if post.created_by == user %}
-                    <a href="#" class="btn btn-primary my-2">Edit</a>
+                    <a href="{% url 'PostUpdateView' post.topic.board.name post.topic.pk post.pk %}" class="btn btn-primary my-2">Edit</a>
                 {% endif %}
                     
             </div>

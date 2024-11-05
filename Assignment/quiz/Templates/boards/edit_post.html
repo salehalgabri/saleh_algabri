@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Eidt Post
+{% endblock title %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'index' %}">Boards</a></li>
+<li class="breadcrumb-item"> <a href="{% url 'boards_topics' post.topic.board.name %}">{{post.topic.board_name}}</a> </li>
+<li class="breadcrumb-item active">Eidt Post</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<form action="" method="post" novalidate class="mb-4">
+    {% csrf_token %}
+
+    {% include 'form.html' %}
+
+    <button class="btn btn-primary my-2" type="submit">Save Chnages</button>
+</form>
+{% endblock content %}
