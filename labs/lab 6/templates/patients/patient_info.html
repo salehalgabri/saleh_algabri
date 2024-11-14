@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block navbar %}
+    <li class="nav-item">
+        <a class="nav-link " aria-current="page" href="{% url 'patients:patients_home' %}">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'patients:show' %}">Patients</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="{% url 'patients:create' %}">Add New Patients</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="{% url 'patients:forms' %}">Forms</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/">Admin</a>
+    </li>
+
+{% endblock navbar %}
+
+    {% block breadcrumb %}
+        <li class="breadcrumb-item"><a href="{% url 'patients:home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a  href="{% url 'patients:patients_home' %}">Patients</a></li>
+        <li class="breadcrumb-item"><a  href="{% url 'patients:show' %}">Show Patients</a></li>
+        <li class="breadcrumb-item active"><a class="text-muted" href="#">{{patient}}</a></li>
+    {% endblock breadcrumb %}
+
+
+{% block content %}
+    <div class="card mb-3 border border-primary m-5 p-5">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{patient.image.url}}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{patient.id}}->{{patient}}</h5>
+                <p class="card-text">age:{{patient.age}}<br>report:{{patient.report}}</p>
+                <p class="card-text"><small class="text-muted"> {{patient.uploaded_at}}</small></p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        <button type="button" class="btn btn-primary"><a href="{% url 'patients:edit' patient.id %}"
+                                class="text-decoration-none text-white">Update</a>
+                        </button>
+                        <button type="button" class="btn btn-danger">
+                            <a href="{% url 'patients:delete' patient.id%}"
+                                class="text-decoration-none text-white">Delete</a>
+                        </button>
+                        <button type="button" class="btn btn-primary"><a href="{% url 'patients:patients_home'%}"
+                                class="text-decoration-none text-white">Home</a>
+                        </button>
+                    </small>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+    

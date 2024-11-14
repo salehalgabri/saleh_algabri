@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+
+{% block navbar %}
+    <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="{% url 'doctors:doctors_home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'doctors:show' %}">Doctors</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link active" href="{% url 'doctors:create' %}">Add New Doctor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'doctors:forms' %}">Forms</a>
+                </li>
+{% if request.user.is_staff %}
+<li class="nav-item">
+    <a class="nav-link" href="/admin/">Admin</a>
+</li>
+{% endif %}
+
+{% endblock navbar %}
+
+
+    {% block breadcrumb %}
+        <li class="breadcrumb-item"><a href="{% url 'patients:home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a  href="{% url 'doctors:doctors_home' %}">doctors</a></li>
+        <li class="breadcrumb-item active"><a class="text-muted" href="#">Add doctors</a></li>
+    {% endblock breadcrumb %}
+
+{% block content %}
+<h1 class="border border-primary m-5 p-5">Add New Doctor</h1>
+<div class="m-5 border-primary">
+    <form method="post" action="{% url 'doctors:create' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="col-md-4">
+            <label for="validationCustom01" class="form-label">First name</label>
+            <input type="text" class="form-control" id="validationCustom01" required name="fname">
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="validationCustom02" required name="lname">
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <label for="validationDefault05" class="form-label">Age</label>
+            <input type="number" class="form-control" id="validationDefault05" required name="age">
+        </div>
+        
+        <div class="input-group">
+            <span class="input-group-text">Specialization</span>
+            <input type="text" class="form-control" aria-label="With textarea" name="Specialization"></input>
+        </div>
+        
+        
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Patient Image</label>
+            <input class="form-control" type="file" id="formImage" name="image">
+        </div>
+        
+        <button type="submit" class="btn btn-primary m-2">Submit</button>
+    </form>
+</div>
+{% endblock %}
