@@ -1,0 +1,42 @@
+{% include 'layout/header.html' %}
+<div class="border border-primary m-5 p-5">
+    <h2 class="card-title text-center bg-primary text-white m-2 p-3">Register</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        
+        <!-- Username field -->
+        <div class="form-floating mb-3">
+            {{ form.username }}
+            <label for="floatingUsername">{{ form.username.label }}</label>
+        </div>
+
+        <!-- Email field -->
+        <div class="form-floating mb-3">
+            {{ form.email }}
+            <label for="floatingEmail">{{ form.email.label }}</label>
+        </div>
+
+        <!-- Password1 field -->
+        <div class="form-floating mb-3">
+            {{ form.password1 }}
+            <label for="floatingPassword1">{{ form.password1.label }}</label>
+        </div>
+
+        <!-- Password2 field -->
+        <div class="form-floating mb-3">
+            {{ form.password2 }}
+            <label for="floatingPassword2">{{ form.password2.label }}</label>
+        </div>
+
+        <!-- Submit button -->
+        <p>
+            <input type="submit" value="Register" class="btn btn-primary">
+            <a href="{% url 'user:login' %}" class="btn btn-link">Login</a>
+        </p>
+
+        <!-- Display form errors -->
+        <div class="text-danger">
+            {{ form.errors }}
+        </div>
+    </form>
+</div>

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'patients:patients_home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'patients:show' %}">Patients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'patients:create' %}">Add New Patients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'patients:forms' %}">Forms</a>
+                </li>
+{% if request.user.is_staff %}
+<li class="nav-item">
+    <a class="nav-link" href="/admin/">Admin</a>
+</li>
+{% endif %}
+
+
+{% endblock navbar %}
+
+
+
+    {% block breadcrumb %}
+        <li class="breadcrumb-item"><a href="{% url 'patients:home' %}">Home</a></li>
+        <li class="breadcrumb-item active"><a class="text-muted" href="#">Patients</a></li>
+    {% endblock breadcrumb %}
+
+{% block content %}
+    <div class="border border-primary m-5 p-5">
+    {% if request.user.is_authenticated  %}
+    <h1>Welcome For You {{request.user}}</h1>
+    {% else %}
+    <h1>Welcome For You Guest</h1>
+
+    {% endif %}
+    <h3>
+        This Page For Patients
+    </h3>
+        </div>
+{% endblock content %}
+    

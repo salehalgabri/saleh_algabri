@@ -1,0 +1,30 @@
+{% include 'layout/header.html' %}
+<div class="border border-primary m-5 p-5">
+    <h2 class="card-title text-center bg-primary text-white m-2 p-3">Login</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <!-- Email field -->
+        <div class="form-floating mb-3">
+            {{ form.email }}
+            <label for="floatingEmail">{{ form.email.label }}</label>
+        </div>
+
+        <!-- Password field -->
+        <div class="form-floating mb-3">
+            {{ form.password }}
+            <label for="floatingPassword">{{ form.password.label }}</label>
+        </div>
+
+        <!-- Submit button -->
+        <p>
+            <input type="submit" value="Login" class="btn btn-primary">
+            <a href="{% url 'user:register' %}" class="btn btn-link">Register</a>
+        </p>
+
+        <!-- Display form errors -->
+        <div class="text-danger">
+            {{ form.errors }}
+        </div>
+    </form>
+</div>
