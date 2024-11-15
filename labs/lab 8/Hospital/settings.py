@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     # 'grappelli',
     # 'patients.apps.SuitConfig',
     'django.contrib.admin',

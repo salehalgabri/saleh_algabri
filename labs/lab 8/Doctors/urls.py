@@ -5,6 +5,7 @@ app_name = 'doctors'  # هذا السطر يعرّف الـ namespace الخاص
 
 urlpatterns = [
     path('', views.doctors_home, name='doctors_home'),
+    path('api/', views.doctor_list, name='api'),
     path('show/', views.doctors_list, name='show'),
     path('update/<int:pk>/', views.doctors_edit, name='edit'),
     path('success/', views.success_message, name='success_message'),
@@ -13,4 +14,5 @@ urlpatterns = [
     path('show/<int:pk>/', views.doctors_show_detail, name='showdetail'),  # تأكد من تصحيح اسم الدالة
     path('create/', views.doctors_create, name='create'),
     path('forms/', views.show_forms, name='forms'),
+    path("<int:doctor_id>/", views.doctor_detail, name="doctor_detail"),
 ]

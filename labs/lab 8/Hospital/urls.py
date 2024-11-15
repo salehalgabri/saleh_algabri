@@ -18,10 +18,13 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework_simplejwt.views import TokenObtainPairView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('patients.urls', namespace='patients')),  # تضمين مسارات تطبيق patients
     path('doctors/', include('Doctors.urls', namespace='doctors')),
     path('', include('user.urls', namespace='user')),
+    path('api/doctors/', include('Doctors.urls', namespace='doctors')),
+    path("api/token/", TokenObtainPairView.as_view()),
     # path('grappelli', include('grappelli.urls')),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

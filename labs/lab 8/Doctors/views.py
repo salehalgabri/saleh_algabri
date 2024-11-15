@@ -6,6 +6,11 @@ from .models import Doctors
 from django.contrib.auth.decorators import login_required
 from .forms import DoctorsForm
 import os
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import DoctorSerializer
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 # Create your views here.
 @login_required(login_url="user:login")
 def doctors_home(request):
@@ -90,3 +95,81 @@ def show_forms(request):
     else:
         doctor_form = DoctorsForm()
         return render(request, 'doctors_forms.html', {'form': doctor_form})
+
+
+@api_view(["GET", "POST"])
+def doctor_list(request):
+    if request.method == "GET":
+        try:
+            doctors = Doctors.objects.all()
+            serializer = DoctorSerializer(doctors, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response(
+                {"error": f"An error while retrieving doctors list: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+    
+    elif request.method == "POST":
+        try:
+            serializer = DoctorSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                    {
+                        "message": "Data added successfully",
+                        "status": status.HTTP_201_CREATED,
+                    },
+                    status=status.HTTP_201_CREATED,
+                )
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response(
+                {"error": f"An error while saving the doctor: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+@api_view(["GET", "PUT", "DELETE"])
+def doctor_detail(request, doctor_id):
+    try:
+        doctor = get_object_or_404(Doctors, id=doctor_id)
+    except Exception as e:
+        return Response(
+            {"error": f"Doctor not found: {str(e)}"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+    if request.method == "GET":
+        try:
+            serializer = DoctorSerializer(doctor)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response(
+                {"error": f"An error while retrieving doctor data: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+    elif request.method == "PUT":
+        try:
+            serializer = DoctorSerializer(doctor, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response(
+                {"error": f"An error while updating doctor data: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    elif request.method == "DELETE":
+        try:
+            doctor.delete()
+            return Response(
+                {"message": "Doctor deleted successfully"},
+                status=status.HTTP_204_NO_CONTENT,
+            )
+        except Exception as e:
+            return Response(
+                {"error": f"An error while deleting doctor data: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
