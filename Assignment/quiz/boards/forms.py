@@ -1,5 +1,5 @@
 from django import forms
-from .models import Topic,Post
+from .models import Topic,Post,Board
 class NewTopicForm(forms.ModelForm):
     message=forms.CharField(
         widget=
@@ -50,3 +50,35 @@ class PostForm(forms.ModelForm):
         
         model=Post
         fields=['message']
+
+
+class NewBoardForm(forms.ModelForm):
+    class Meta:
+        model=Board
+        fields="__all__"
+    
+    name=forms.CharField(
+        widget=
+        forms.TextInput(
+            attrs={
+                'placeholder':'The Max Length Of Text Is 50',
+                'class':'form-control',
+                'id':"name",
+                
+                },
+            ),
+
+        max_length=50,
+        help_text='The Max Length Of Text Is 50',
+        )
+    description=forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                'placeholder':'',#من الضروري وضع place holder والا لن يكون هناك انميشن لليبل
+                'class':'form-control',
+                'id':"description",
+                },
+            ),
+        max_length=150,
+        help_text="The Max Length Of Text Is 150"
+    )

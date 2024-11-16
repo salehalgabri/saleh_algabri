@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.http import HttpResponse,Http404
 from .models import Board,Topic,Post,User
-from .forms import NewTopicForm,PostForm
+from .forms import NewTopicForm,PostForm,NewBoardForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.utils import timezone
@@ -40,6 +40,22 @@ def new_topic(request,boards_name):
             return redirect('boards_topics',boards_name)
     
     return render(request,'new_topic.html',{'board_name':board,'form':form})
+
+
+
+@login_required
+def NewBoard(request):
+    form=(NewBoardForm)
+    if request.method == "POST":
+        form=NewBoardForm(request.POST)
+        if form.is_valid():
+            form.save()
+            boards=Board.objects.all()
+            return render(request,'home.html',{'boards':boards})
+    else:
+        return render(request,'new_boards.html',{'form':form})
+
+
 
 def topic_posts(request, boards_name, topic_id):
     topic = get_object_or_404(Topic, board__name=boards_name, pk=topic_id)

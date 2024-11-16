@@ -19,6 +19,7 @@ from . import views
 
 urlpatterns = [
     path('',views.home,name='index'),
+    path("boards/new/", views.NewBoard, name="NewBoard"),
     path('boards/<boards_name>/',views.boards_topics,name='boards_topics'),
     path('boards/<boards_name>/new/',views.new_topic,name='new_topic'),
     path('boards/<boards_name>/topics/<int:topic_id>/',views.topic_posts,name='topic_posts'),

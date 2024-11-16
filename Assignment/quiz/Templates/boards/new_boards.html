@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create New Topic
+{% endblock title %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'index' %}">Boards</a></li>
+<li class="breadcrumb-item active">New Board</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    {% load widget_tweaks %}
+    {% for field in form %}
+    <div class="form-floating mb-3">
+        {% if field.errors %}
+        {% if field.name == "name" %}
+        {% render_field field class="form-control is-invalid" %}
+        <label for="name">{{ field.label }}</label>
+        {% elif field.name == "description" %}
+        {% render_field field class="form-control is-invalid" style="height:200px" %}
+        <label for="description">{{ field.label }}</label>
+        {% endif %}
+        {% for error in field.errors %}
+        <div class="invalid-feedback">
+            {{ error }}
+        </div>
+        {% endfor %}
+        {% else %}
+        {% if field.name == "name" %}
+        {% render_field field class="form-control " %}
+        <label for="name">{{ field.label }}</label>
+        {% elif field.name == "description" %}
+        {% render_field field class="form-control" style="height:200px" %}
+        <label for="description">{{ field.label }}</label>
+        {% endif %}
+        {% endif %}
+    </div>
+    
+    {% if field.help_text %}
+    <small class="form-text text-muted mb-3">
+        {{ field.help_text }}
+    </small>
+    <br>
+    <br>
+    {% endif %}
+    {% endfor %}
+
+    <button class="btn btn-primary my-2" type="submit">Add</button>
+</form>
+{% endblock content %}
